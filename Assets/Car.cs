@@ -3,8 +3,8 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
     public Rigidbody rb;
-    public float speed = 1500f; 
-    public float turnSpeed = 50f; 
+    public float speed = 1500f;
+    public float turnSpeed = 50f;
 
     void Start()
     {
@@ -16,20 +16,18 @@ public class Car : MonoBehaviour
 
     void FixedUpdate()
     {
-        float moveInput = Input.GetAxis("Vertical"); 
-        float turnInput = Input.GetAxis("Horizontal"); 
+        float moveInput = Input.GetAxis("Vertical");
+        float turnInput = Input.GetAxis("Horizontal");
 
-      
         Vector3 moveForce = transform.forward * moveInput * speed * Time.deltaTime;
         rb.AddForce(moveForce, ForceMode.Acceleration);
 
-       
-        if (moveInput != 0) 
+        if (moveInput != 0)
         {
             Quaternion turnRotation = Quaternion.Euler(0, turnInput * turnSpeed * Time.deltaTime, 0);
             rb.MoveRotation(rb.rotation * turnRotation);
         }
-    }
 
-    
+        rb.AddForce(Vector3.down * 9.81f, ForceMode.Acceleration);
+    }
 }
